@@ -17,6 +17,7 @@ public class myBackoff {
 
     public static void linear_test(PrintWriter ofile, int N)
     {
+        // perform 10 trials and take average
         for (int trial = 0; trial < 10; trial++) {
             linear_backoff();
         }
@@ -25,6 +26,7 @@ public class myBackoff {
 
     public static void binary_test(PrintWriter ofile, int N)
     {
+        // perform 10 trials and take average
         for (int trial = 0; trial < 10; trial++) {
             binary_exponential_backoff();
         }
@@ -33,6 +35,7 @@ public class myBackoff {
 
     public static void logarithmic_test(PrintWriter ofile, int N)
     {
+        // perform 10 trials and take average
         for (int trial = 0; trial < 10; trial++) {
             logarithmic_backoff();
         }
@@ -48,13 +51,7 @@ public class myBackoff {
 
         for (int N = 100; N <= 60000; N += 100) {
             linear_test(linear_of, N);
-        }
-
-        for (int N = 100; N <= 60000; N += 100) {
             binary_test(binary_of, N);
-        }
-
-        for (int N = 100; N <= 60000; N += 100) {
             logarithmic_test(log_of, N);
         }
 
