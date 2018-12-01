@@ -3,26 +3,38 @@ import java.io.PrintWriter;
 
 public class myBackoff {
 
-    public static void linear_backoff(PrintWriter ofile, int N)
+    public static void linear_backoff(int N)
+    {
+    }
+
+    public static void binary_exponential_backoff(int N)
+    {
+    }
+
+    public static void logarithmic_backoff(int N)
+    {
+    }
+
+    public static void linear_test(PrintWriter ofile, int N)
     {
         for (int trial = 0; trial < 10; trial++) {
-            // perform trials
+            linear_backoff();
         }
         ofile.println(N);
     }
 
-    public static void binary_exponential_backoff(PrintWriter ofile, int N)
+    public static void binary_test(PrintWriter ofile, int N)
     {
         for (int trial = 0; trial < 10; trial++) {
-            // perform trials
+            binary_exponential_backoff();
         }
         ofile.println(N);
     }
 
-    public static void logarithmic_backoff(PrintWriter ofile, int N)
+    public static void logarithmic_test(PrintWriter ofile, int N)
     {
         for (int trial = 0; trial < 10; trial++) {
-            // perform trials
+            logarithmic_backoff();
         }
         ofile.println(N);
     }
@@ -35,15 +47,15 @@ public class myBackoff {
         PrintWriter log_of = new PrintWriter("logLatency.txt");
 
         for (int N = 100; N <= 60000; N += 100) {
-            linear_backoff(linear_of, N);
+            linear_test(linear_of, N);
         }
 
         for (int N = 100; N <= 60000; N += 100) {
-            binary_exponential_backoff(binary_of, N);
+            binary_test(binary_of, N);
         }
 
         for (int N = 100; N <= 60000; N += 100) {
-            logarithmic_backoff(log_of, N);
+            logarithmic_test(log_of, N);
         }
 
         linear_of.close();
