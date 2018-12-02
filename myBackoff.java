@@ -25,7 +25,7 @@ public class myBackoff {
                 slots[rand_slot]++;
             }
 
-            // check for sucessful transmissions
+            // check for successful transmissions
             for (int i = 0; i < slots.length; i++) {
                 if (slots[i] == 1) {
                     // transmission was successful
@@ -67,7 +67,7 @@ public class myBackoff {
                 slots[rand_slot]++;
             }
 
-            // check for sucessful transmissions
+            // check for successful transmissions
             for (int i = 0; i < slots.length; i++) {
                 if (slots[i] == 1) {
                     // transmission was successful
@@ -96,7 +96,43 @@ public class myBackoff {
 
     public static int logarithmic_backoff(int num_devices)
     {
-        return 0;
+        int num_slots = 2;
+        int latency = num_slots;
+        int[] slots = new int[num_slots];
+
+        while (num_devices > 0) {
+            // tally which slots each device goes in
+            for (int dev = 0; dev < num_devices; dev++) {
+                // pick a random slot and inc
+                int rand_slot = rand_int(0, num_slots - 1);
+                slots[rand_slot]++;
+            }
+
+            // check for successful transmissions
+            for (int i = 0; i < slots.length; i++) {
+                if (slots[i] == 1) {
+                    // transmission was successful
+                    num_devices--;
+                }
+            }
+
+            // see if we need to increase the window
+            if (num_devices > 0) {
+                num_slots = (int) (1 + (1/(Math.log(num_slots)/Math.log(2)))*num_slots);
+                slots = new int[num_slots];
+                latency += num_slots;
+            } else {
+                for (int i = num_slots - 1; i > 0; i--){
+                    // start at the end and check for the last 1
+                    if (slots[i] == 1) {
+                        // need to +1 since this is basing off the index
+                        latency += i + 1;
+                        break;
+                    }
+                }
+            }
+        }
+        return latency;
     }
 
     public static void linear_test(PrintWriter ofile, int num_devices)
