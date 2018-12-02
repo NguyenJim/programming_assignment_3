@@ -91,13 +91,7 @@ public class myBackoff {
                 }
             }
         }
-
-        System.out.println(Arrays.toString(slots));
-        System.out.print("Num slots: ");
-        System.out.println(num_slots);
-        System.out.print("Latency: ");
-        System.out.println(latency);
-        return 0;
+        return latency;
     }
 
     public static int logarithmic_backoff(int num_devices)
@@ -136,6 +130,7 @@ public class myBackoff {
         throws FileNotFoundException
     {
         System.out.println(linear_backoff(100));
+        System.out.println(binary_exponential_backoff(100));
         // PrintWriter linear_of = new PrintWriter("linearLatency.txt");
         // PrintWriter binary_of = new PrintWriter("binaryLatency.txt");
         // PrintWriter log_of = new PrintWriter("logLatency.txt");
