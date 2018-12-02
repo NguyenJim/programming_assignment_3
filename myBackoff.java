@@ -15,6 +15,7 @@ public class myBackoff {
     {
         int num_slots = 2;
         int latency = num_slots;
+        int last_1 = 0;
         int[] slots = new int[num_slots];
 
         while (num_devices > 0) {
@@ -30,6 +31,7 @@ public class myBackoff {
                 if (slots[i] == 1) {
                     // transmission was successful
                     num_devices--;
+                    last_1 = i + 1;
                 }
             }
 
@@ -39,17 +41,9 @@ public class myBackoff {
                 slots = new int[num_slots];
                 latency += num_slots;
             } else {
-                for (int i = num_slots - 1; i > 0; i--){
-                    // start at the end and check for the last 1
-                    if (slots[i] == 1) {
-                        // need to +1 since this is basing off the index
-                        latency += i + 1;
-                        break;
+                latency += last_1;
                     }
                 }
-            }
-        }
-
         return latency;
     }
 
@@ -57,6 +51,7 @@ public class myBackoff {
     {
         int num_slots = 2;
         int latency = num_slots;
+        int last_1 = 0;
         int[] slots = new int[num_slots];
 
         while (num_devices > 0) {
@@ -72,6 +67,7 @@ public class myBackoff {
                 if (slots[i] == 1) {
                     // transmission was successful
                     num_devices--;
+                    last_1 = i + 1;
                 }
             }
 
@@ -81,16 +77,9 @@ public class myBackoff {
                 slots = new int[num_slots];
                 latency += num_slots;
             } else {
-                for (int i = num_slots - 1; i > 0; i--){
-                    // start at the end and check for the last 1
-                    if (slots[i] == 1) {
-                        // need to +1 since this is basing off the index
-                        latency += i + 1;
-                        break;
+                latency += last_1;
                     }
                 }
-            }
-        }
         return latency;
     }
 
@@ -98,6 +87,7 @@ public class myBackoff {
     {
         int num_slots = 2;
         int latency = num_slots;
+        int last_1 = 0;
         int[] slots = new int[num_slots];
 
         while (num_devices > 0) {
@@ -113,6 +103,7 @@ public class myBackoff {
                 if (slots[i] == 1) {
                     // transmission was successful
                     num_devices--;
+                    last_1 = i + 1;
                 }
             }
 
@@ -122,16 +113,9 @@ public class myBackoff {
                 slots = new int[num_slots];
                 latency += num_slots;
             } else {
-                for (int i = num_slots - 1; i > 0; i--){
-                    // start at the end and check for the last 1
-                    if (slots[i] == 1) {
-                        // need to +1 since this is basing off the index
-                        latency += i + 1;
-                        break;
+                latency += last_1;
                     }
                 }
-            }
-        }
         return latency;
     }
 
@@ -181,19 +165,19 @@ public class myBackoff {
         throws FileNotFoundException
     {
         PrintWriter linear_of = new PrintWriter("linearLatency.txt");
-        PrintWriter binary_of = new PrintWriter("binaryLatency.txt");
-        PrintWriter log_of = new PrintWriter("logLatency.txt");
+        //PrintWriter binary_of = new PrintWriter("binaryLatency.txt");
+        //PrintWriter log_of = new PrintWriter("logLatency.txt");
 
         for (int N = 100; N <= 6000; N += 100) {
             System.out.println(N);
             linear_test(linear_of, N);
-            binary_test(binary_of, N);
-            logarithmic_test(log_of, N);
+            //binary_test(binary_of, N);
+            //logarithmic_test(log_of, N);
         }
 
         linear_of.close();
-        binary_of.close();
-        log_of.close();
+        //binary_of.close();
+        //log_of.close();
     }
 }
 
