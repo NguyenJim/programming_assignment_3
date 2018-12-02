@@ -11,7 +11,7 @@ public class myBackoff {
         return rand.nextInt(max - min + 1) + min;
     }
 
-    public static void linear_backoff(int num_devices)
+    public static int linear_backoff(int num_devices)
     {
         int num_slots = 2;
         int latency = num_slots;
@@ -35,7 +35,8 @@ public class myBackoff {
 
             // see if we need to increase the window
             if (num_devices > 0) {
-                slots = new int[++num_slots];
+                num_slots += 1;
+                slots = new int[num_slots];
                 latency += num_slots;
             } else {
                 for (int i = num_slots - 1; i > 0; i--){
@@ -49,14 +50,10 @@ public class myBackoff {
             }
         }
 
-        System.out.println(Arrays.toString(slots));
-        System.out.print("Num slots: ");
-        System.out.println(num_slots);
-        System.out.print("Latency: ");
-        System.out.println(latency);
+        return latency;
     }
 
-    public static void binary_exponential_backoff(int num_devices)
+    public static int binary_exponential_backoff(int num_devices)
     {
         int num_slots = 2;
         int latency = num_slots;
@@ -100,10 +97,12 @@ public class myBackoff {
         System.out.println(num_slots);
         System.out.print("Latency: ");
         System.out.println(latency);
+        return 0;
     }
 
-    public static void logarithmic_backoff(int num_devices)
+    public static int logarithmic_backoff(int num_devices)
     {
+        return 0;
     }
 
     public static void linear_test(PrintWriter ofile, int num_devices)
@@ -136,7 +135,7 @@ public class myBackoff {
     public static void main(String[] args)
         throws FileNotFoundException
     {
-        linear_backoff(100);
+        System.out.println(linear_backoff(100));
         // PrintWriter linear_of = new PrintWriter("linearLatency.txt");
         // PrintWriter binary_of = new PrintWriter("binaryLatency.txt");
         // PrintWriter log_of = new PrintWriter("logLatency.txt");
