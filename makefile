@@ -11,4 +11,4 @@ clean:
 	$(RM) *.class
 
 zip:
-	@zip jtn136-tkm129-rs1515-PA2.zip *.java makefile
+	@zip jtn136-tkm129-rs1515-PA3.zip *.java makefile
