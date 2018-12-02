@@ -66,10 +66,15 @@ public class myBackoff {
     public static void linear_test(PrintWriter ofile, int num_devices)
     {
         // perform 10 trials and take average
+        int avg;
+        int sum = 0;
+
         for (int trial = 0; trial < 10; trial++) {
-            linear_backoff(num_devices);
+            sum += linear_backoff(num_devices);
         }
-        // ofile.println(N);
+
+        avg = sum / 10;
+        ofile.println(avg);
     }
 
     public static void binary_test(PrintWriter ofile, int num_devices)
@@ -93,18 +98,18 @@ public class myBackoff {
     public static void main(String[] args)
         throws FileNotFoundException
     {
-        System.out.println(linear_backoff(100));
-        // PrintWriter linear_of = new PrintWriter("linearLatency.txt");
+        PrintWriter linear_of = new PrintWriter("linearLatency.txt");
         // PrintWriter binary_of = new PrintWriter("binaryLatency.txt");
         // PrintWriter log_of = new PrintWriter("logLatency.txt");
 
-        // for (int N = 100; N <= 6000; N += 100) {
-        //     linear_test(linear_of, N);
+        for (int N = 100; N <= 6000; N += 100) {
+            System.out.println(N);
+            linear_test(linear_of, N);
         //     binary_test(binary_of, N);
         //     logarithmic_test(log_of, N);
-        // }
+        }
 
-        // linear_of.close();
+        linear_of.close();
         // binary_of.close();
         // log_of.close();
     }
