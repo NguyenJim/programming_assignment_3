@@ -109,7 +109,7 @@ public class myBackoff {
 
             // see if we need to increase the window
             if (num_devices > 0) {
-                num_slots = (int) (1 + (1/(Math.log(num_slots)/Math.log(2)))*num_slots);
+                num_slots = (int) ((1 + (1/(Math.log(num_slots)/Math.log(2))))*num_slots);
                 slots = new int[num_slots];
                 latency += num_slots;
             } else {
@@ -119,7 +119,7 @@ public class myBackoff {
         return latency;
     }
 
-    public static void linear_test(PrintWriter ofile, int num_devices)
+   public static void linear_test(PrintWriter ofile, int num_devices)
     {
         // perform 10 trials and take average
         int avg;
@@ -164,20 +164,20 @@ public class myBackoff {
     public static void main(String[] args)
         throws FileNotFoundException
     {
-        PrintWriter linear_of = new PrintWriter("linearLatency.txt");
+        //PrintWriter linear_of = new PrintWriter("linearLatency.txt");
         //PrintWriter binary_of = new PrintWriter("binaryLatency.txt");
-        //PrintWriter log_of = new PrintWriter("logLatency.txt");
+        PrintWriter log_of = new PrintWriter("logLatency.txt");
 
         for (int N = 100; N <= 6000; N += 100) {
             System.out.println(N);
-            linear_test(linear_of, N);
+            //linear_test(linear_of, N);
             //binary_test(binary_of, N);
-            //logarithmic_test(log_of, N);
+            logarithmic_test(log_of, N);
         }
 
-        linear_of.close();
+        //linear_of.close();
         //binary_of.close();
-        //log_of.close();
+        log_of.close();
     }
 }
 
